@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10251f">
+<title>SpeakWell — Speech Practice Studio</title>
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" aria-label="Main navigation">
+    <a class="brand" href="/" aria-label="SpeakWell home"><span class="brand-mark">s.</span><span>SpeakWell<small>VOICE PRACTICE STUDIO</small></span></a>
+    <div class="nav-label">WORKSPACE</div>
+    <nav class="side-nav">
+      <button class="nav-item active" data-tab="practice"><span>◉</span> Practice <kbd>1</kbd></button>
+      <button class="nav-item" data-tab="progress"><span>▥</span> Progress <kbd>2</kbd></button>
+      
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="privacy-note"><span class="privacy-dot"></span><div><b>Your practice, your pace</b><small>Sessions are stored on this server.</small></div></div>
+      <div class="profile"><div class="avatar">S</div><div><b>Practice space</b><small>Personal workspace</small></div></div>
+    </div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div><div class="crumb">WORKSPACE <span>/</span> <b id="crumb-current">PRACTICE</b></div><div class="mobile-brand">SpeakWell <span>STUDIO</span></div></div>
+      <div class="top-actions"><span id="connection" class="connection"><i></i> Connecting</span><span id="mode" class="mode">Checking AI mode…</span></div>
+    </header>
+    <section class="welcome">
+      <div><p class="eyebrow">A LITTLE PRACTICE GOES A LONG WAY</p><h1>Find your <em>speaking flow.</em></h1>
+      <p class="welcome-copy">A calm space to practise at your own pace, explore guided exercises and reflect on each session.</p></div>
+      <div class="welcome-art" aria-hidden="true"><div class="sound-ring ring-one"></div><div class="sound-ring ring-two"></div><div class="sound-core">♫</div><span class="art-spark spark-a">✳</span><span class="art-spark spark-b">·</span></div>
+    </section>
+    <nav class="mobile-tabs" aria-label="Sections">
+      <button class="mobile-tab active" data-tab="practice">Practice</button><button class="mobile-tab" data-tab="progress">Progress</button>
+    </nav>
+    <section id="practice" class="panel active" aria-labelledby="practice-title">
+      <div class="section-heading"><div><p class="eyebrow">YOUR PRACTICE MENU</p><h2 id="practice-title">Choose a session</h2><p class="section-copy">Short, focused activities. No pressure to get everything perfect.</p></div><span id="provider-tag" class="soft-tag">GNANI SPEECH: CHECKING</span></div>
+      <section class="ai-chat-card" aria-labelledby="ai-chat-title">
+        <div class="ai-chat-heading"><div><p class="eyebrow">REAL BACK-AND-FORTH PRACTICE</p><h2 id="ai-chat-title">Talk with Gemini</h2><p class="section-copy">Gnani listens to your speech, Gemini responds in context, and Gnani speaks the reply.</p></div><span id="gemini-status" class="soft-tag">CHECKING GEMINI</span></div>
+        <div class="ai-chat-start"><label for="ai-scenario">Choose a situation</label><select id="ai-scenario" class="language-select"><option value="open-conversation">Open conversation</option></select><button id="ai-start" class="button button-primary" disabled>Start voice conversation <span>↗</span></button></div>
+        <p id="ai-setup-note" class="helper">Add GEMINI_API_KEY to your local .env and restart the app to enable AI conversations.</p>
+        <div id="ai-thread" class="ai-thread hidden" role="log" aria-live="polite" aria-relevant="additions"></div>
+        <div id="ai-composer" class="ai-composer hidden">
+          <label for="ai-input">Your message</label><textarea id="ai-input" rows="2" maxlength="2000" placeholder="Type a reply, or speak using Gnani Prisma…"></textarea>
+          <div class="ai-chat-actions"><div class="button-row"><button id="ai-record-start" class="button button-outline" disabled>● Speak</button><button id="ai-record-stop" class="button button-outline" disabled>Stop mic</button></div><div class="button-row"><button id="ai-send" class="button button-primary" disabled>Send to Gemini ↗</button><button id="ai-save" class="button button-outline" disabled>End & save</button></div></div>
+          <p id="ai-helper" class="helper">Voice is transcribed by Gnani Prisma; Gemini receives the transcript; Gnani Timbre speaks Gemini's reply. Save only when you choose “End &amp; save.”</p>
+        </div>
+      </section>
+      <div id="exercise-grid" class="exercise-grid" aria-live="polite"></div>
+      <div class="conversation-heading"><div><p class="eyebrow">PRACTISE REAL-LIFE MOMENTS</p><h2>Guided conversations</h2><p class="section-copy">Six English-language role-plays, three turns each. Partner lines are scripted, not AI; respond in your own words.</p></div><span class="soft-tag">NO PERFECT ANSWERS</span></div>
+      <div id="conversation-grid" class="exercise-grid conversation-grid" aria-live="polite"></div>
+      <div id="practice-card" class="practice-card hidden">
+        <div class="practice-heading"><div><p class="eyebrow">YOUR ACTIVE SESSION</p><h3 id="exercise-title"></h3></div><span id="exercise-level" class="level-tag"></span></div>
+        <p class="instruction" id="exercise-tip"></p>
+        <div id="conversation-step" class="conversation-step hidden">
+          <div class="conversation-step-meta"><span id="turn-count"></span><span>YOUR TURN</span></div>
+          <div class="turn-progress" role="progressbar" aria-label="Conversation progress" aria-valuemin="1" aria-valuemax="3"><span id="turn-progress"></span></div>
+          <p id="turn-goal" class="turn-goal"></p>
+          <details class="phrase-help"><summary>Need a starting phrase?</summary><p id="turn-starter"></p></details>
+        </div>
+        <div class="prompt-card"><div class="prompt-meta"><span id="prompt-label">YOUR SPEAKING PROMPT</span><span class="wave-mini">▂ ▄ ▆ ▃ ▅ ▂</span></div><p id="target-text"></p><button id="speak-target" class="button button-soft"><span>▶</span> Listen to example</button></div>
+        <label for="speech-language">Speech language</label><select id="speech-language" class="language-select"><option value="en-IN" selected>English (India)</option><option value="hi-IN">Hindi</option><option value="te-IN">Telugu</option><option value="ta-IN">Tamil</option><option value="kn-IN">Kannada</option><option value="ml-IN">Malayalam</option><option value="mr-IN">Marathi</option><option value="bn-IN">Bengali</option><option value="gu-IN">Gujarati</option><option value="pa-IN">Punjabi</option></select><div class="transcript-label-row"><label id="transcript-label" for="transcript">What did you say?</label><span id="transcript-count">0 / 2,000</span></div><textarea id="transcript" rows="3" maxlength="2000" aria-describedby="transcript-count" placeholder="Type your practice transcript, or use voice typing if your browser supports it…"></textarea>
+        <div class="form-footer"><p id="practice-helper" class="helper">Live mode: microphone audio streams continuously to Gnani Prisma. No browser speech-recognition fallback is used.</p><div class="button-row"><button id="record-start" class="button button-outline">● Start live Prisma</button><button id="record-stop" class="button button-outline" disabled>Stop live session</button><button id="submit-practice" class="button button-primary" disabled>Review practice <span>↗</span></button></div></div>
+        <div id="feedback" class="feedback hidden" aria-live="polite"></div>
+      </div>
+    </section>
+    <section id="progress" class="panel" aria-labelledby="progress-title">
+      <div class="section-heading"><div><p class="eyebrow">YOUR PRACTICE JOURNEY</p><h2 id="progress-title">A record of showing up</h2><p class="section-copy">See your practice activity over time. These are text-match hints, not clinical measurements.</p></div><span id="sync-status" class="soft-tag">LIVE SYNC ON</span></div>
+      <div class="stat-grid"><article class="stat-card"><span class="stat-icon">↗</span><strong id="session-count">0</strong><small>Practice sessions</small></article><article class="stat-card"><span class="stat-icon">⌁</span><strong id="avg-score">—</strong><small>Average prompt word overlap</small></article><article class="stat-card"><span class="stat-icon">◷</span><strong id="latest-date">—</strong><small>Most recent session</small></article></div>
+      <div class="list-heading"><h3>Recent sessions</h3><span>UPDATES AUTOMATICALLY</span></div><div id="session-list" class="session-list"></div>
+    </section>
+    <footer><span>SpeakWell Practice Studio</span><span>Practice support only · Not a medical or diagnostic service</span></footer>
+  </main>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="/static/app.js"></script>
+</body></html>
